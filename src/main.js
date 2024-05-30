@@ -31,12 +31,16 @@ if (!fs.existsSync(settingsPath)) {
     }
 }
 
-const apiKey = JSON.parse(
+let apiKey = JSON.parse(
     fs.readFileSync(settingsPath, "utf-8")
 ).openai_api_key;
 const baseURL = JSON.parse(
     fs.readFileSync(settingsPath, "utf-8")
 ).openai_base_url;
+
+if (process.env.OPENAI_API_KEY) {
+    apiKey = process.env.OPENAI_API_KEY;
+}
 
 try {
     if (apiKey || baseURL) {
